@@ -39,12 +39,17 @@ public enum SettingEnum {
     //QQ 浏览器 联合登录设置
     QQ_CONNECT,
 
+    GOOGLE_CONNECT,
+
     //各端支持支付设置
     PAYMENT_SUPPORT,
     //支付宝支付设置
     ALIPAY_PAYMENT,
     //微信支付设置
     WECHAT_PAYMENT,
+
+    HUPIJIAO_PAYMENT,
+
     //热词设置
     HOT_WORDS
 }

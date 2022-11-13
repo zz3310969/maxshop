@@ -9,6 +9,11 @@ package cn.lili.modules.payment.entity.enums;
 public enum PaymentMethodEnum {
 
     /**
+     * 虎皮椒
+     */
+    HUPIJIAO("huPiJiaoPlugin", "虎皮椒"),
+
+    /**
      * 微信
      */
     WECHAT("wechatPlugin", "微信"),

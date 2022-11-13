@@ -481,6 +481,10 @@ public enum ResultCode {
     WECHAT_ERROR(80307, "微信接口异常"),
     APP_VERSION_EXIST(80307, "APP版本已存在"),
 
+
+    HUPIJIAO_PAYMENT_NOT_SETTING(80308, "微信支付信息未配置"),
+
+
     /**
      * 其他
      */

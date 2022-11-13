@@ -160,10 +160,10 @@ swagger:
   title: lilishop API接口文档
   description: lilishop Api Documentation
   version: 4.2.2
-  termsOfServiceUrl: https://pickmall.cn
+  termsOfServiceUrl: https://maxmall.cn
   contact:
     name: lili
-    url: https://pickmall.cn
+    url: https://maxmall.cn
     email: admin@pickmall.com
 
 # Mybatis-plus
