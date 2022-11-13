@@ -3,12 +3,14 @@ package cn.lili.modules.payment.kit.plugin.hupijiao;
 import cn.hutool.core.net.URLDecoder;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import cn.lili.common.enums.ClientTypeEnum;
 import cn.lili.common.enums.ResultCode;
 import cn.lili.common.enums.ResultUtil;
 import cn.lili.common.exception.ServiceException;
 import cn.lili.common.properties.ApiProperties;
 import cn.lili.common.utils.CurrencyUtil;
 import cn.lili.common.vo.ResultMessage;
+import cn.lili.modules.payment.entity.enums.CashierEnum;
 import cn.lili.modules.payment.entity.enums.PaymentMethodEnum;
 import cn.lili.modules.payment.kit.CashierSupport;
 import cn.lili.modules.payment.kit.Payment;
@@ -142,28 +144,26 @@ public class HuPiJiaoPlugin implements Payment {
      */
     private void verifyNotify(HttpServletRequest request) throws Exception {
 
-        String trade_order_id = request.getParameter("trade_order_id");
-
-        log.info("支付trade_order_id：{}", trade_order_id);
-
-        String result = HttpKit.readData(request);
-        log.info("微信支付通知密文 {}", result);
 
         Map<String, String> map = AliPayApi.toMap(request);
         log.info("支付回调响应：{}", JSONUtil.toJsonStr(map));
 
+        //{"transaction_id":"4200001602202211136084773466","order_title":"_账号","nonce_str":"5662318599","total_fee":"0.01","appid":"20211111202","trade_order_id":"T202211131591698872600866816","open_order_id":"202111669414","time":"1668325599","hash":"b7f829217988f29b3344c4f7e8201755","status":"OD"}
+
+
         HuPiJiaoPaymentSetting setting = huPiJiaoPaymentSetting();
 
 
-        JSONObject jsonObject = JSONUtil.parseObj(result);
 
-        String payParamStr = jsonObject.getStr("attach");
-        String payParamJson = URLDecoder.decode(payParamStr, StandardCharsets.UTF_8);
-        PayParam payParam = JSONUtil.toBean(payParamJson, PayParam.class);
+        String trade_order_id = map.get("trade_order_id");
 
+        PayParam payParam = new PayParam();
+        payParam.setSn(trade_order_id);
+        payParam.setClientType(CashierEnum.TRADE.name());
+        payParam.setOrderType(ClientTypeEnum.PC.name());
 
-        String tradeNo = jsonObject.getStr("open_order_id");
-        Double totalAmount = CurrencyUtil.reversalFen(jsonObject.getDouble("total_fee"));
+        String tradeNo = map.get("open_order_id");
+        Double totalAmount = new BigDecimal(map.get("total_fee")).doubleValue();
 
         PaymentSuccessParams paymentSuccessParams = new PaymentSuccessParams(
                 PaymentMethodEnum.HUPIJIAO.name(),
