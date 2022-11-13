@@ -16,6 +16,7 @@ import cn.lili.modules.payment.kit.core.kit.HttpKit;
 import cn.lili.modules.payment.kit.dto.PayParam;
 import cn.lili.modules.payment.kit.dto.PaymentSuccessParams;
 import cn.lili.modules.payment.kit.params.dto.CashierParam;
+import cn.lili.modules.payment.kit.plugin.alipay.AliPayApi;
 import cn.lili.modules.payment.service.PaymentService;
 import cn.lili.modules.system.entity.dos.Setting;
 import cn.lili.modules.system.entity.dto.payment.HuPiJiaoPaymentSetting;
@@ -29,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
 
 @Slf4j
 @Component
@@ -142,8 +144,13 @@ public class HuPiJiaoPlugin implements Payment {
 
         String trade_order_id = request.getParameter("trade_order_id");
 
+        log.info("支付trade_order_id：{}", trade_order_id);
+
         String result = HttpKit.readData(request);
         log.info("微信支付通知密文 {}", result);
+
+        Map<String, String> map = AliPayApi.toMap(request);
+        log.info("支付回调响应：{}", JSONUtil.toJsonStr(map));
 
         HuPiJiaoPaymentSetting setting = huPiJiaoPaymentSetting();
 
