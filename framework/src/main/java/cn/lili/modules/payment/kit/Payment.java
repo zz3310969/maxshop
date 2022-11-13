@@ -118,6 +118,9 @@ public interface Payment {
      * @return 回调地址
      */
     default String callbackUrl(String api, PaymentMethodEnum paymentMethodEnum) {
+        if(paymentMethodEnum.equals(PaymentMethodEnum.HUPIJIAO)){
+            return api + "/buyer/payment/cashier/hu/callback/" + paymentMethodEnum.name();
+        }
         return api + "/buyer/payment/cashier/callback/" + paymentMethodEnum.name();
     }
 

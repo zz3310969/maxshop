@@ -78,11 +78,11 @@ public class HuPiJiaoPlugin implements Payment {
         //支付金额
         Double fen = cashierParam.getPrice();
 
-        String notifyUrl = notifyUrl(apiProperties.getBuyer(), PaymentMethodEnum.HUPIJIAO);
+        String callbackUrl = callbackUrl(apiProperties.getBuyer(), PaymentMethodEnum.HUPIJIAO);
 
         String code = null;
         try {
-            code = HuPiJiaoApi.pay(appid, setting.getAppsecret(), payParam.getSn(),"", new BigDecimal(fen), notifyUrl);
+            code = HuPiJiaoApi.pay(appid, setting.getAppsecret(), payParam.getSn(),"", new BigDecimal(fen), callbackUrl);
             return ResultUtil.data(JSONUtil.toJsonStr(code));
 
         } catch (Exception e) {
@@ -106,11 +106,11 @@ public class HuPiJiaoPlugin implements Payment {
         //支付金额
         Double fen = cashierParam.getPrice();
 
-        String notifyUrl = notifyUrl("http://35.188.205.168:8888", PaymentMethodEnum.HUPIJIAO);
+        String callbackUrl = callbackUrl("http://35.188.205.168:8888", PaymentMethodEnum.HUPIJIAO);
 
         String code = null;
         try {
-            code = HuPiJiaoApi.pay(appid, setting.getAppsecret(), payParam.getSn(),"", new BigDecimal(0.01), notifyUrl);
+            code = HuPiJiaoApi.pay(appid, setting.getAppsecret(), payParam.getSn(),"", new BigDecimal(0.01), callbackUrl);
             return ResultUtil.data(JSONUtil.toJsonStr(code));
         } catch (Exception e) {
             log.error("虎皮椒二维码支付错误", e);

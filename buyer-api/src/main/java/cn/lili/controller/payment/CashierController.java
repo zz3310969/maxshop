@@ -87,6 +87,17 @@ public class CashierController {
         return ResultUtil.success(ResultCode.PAY_SUCCESS);
     }
 
+    @ApiOperation(value = "虎皮椒支付回调")
+    @RequestMapping(value = "/hu/callback/{paymentMethod}", method = {RequestMethod.GET, RequestMethod.POST})
+    public String huCallback(HttpServletRequest request, @PathVariable String paymentMethod) {
+
+        PaymentMethodEnum paymentMethodEnum = PaymentMethodEnum.valueOf(paymentMethod);
+
+        cashierSupport.callback(paymentMethodEnum, request);
+
+        return "success";
+    }
+
     @ApiOperation(value = "支付异步通知")
     @RequestMapping(value = "/notify/{paymentMethod}", method = {RequestMethod.GET, RequestMethod.POST})
     public void notify(HttpServletRequest request, @PathVariable String paymentMethod) {
