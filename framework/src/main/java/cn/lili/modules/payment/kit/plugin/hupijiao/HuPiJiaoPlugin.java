@@ -159,8 +159,8 @@ public class HuPiJiaoPlugin implements Payment {
 
         PayParam payParam = new PayParam();
         payParam.setSn(trade_order_id);
-        payParam.setClientType(CashierEnum.TRADE.name());
-        payParam.setOrderType(ClientTypeEnum.PC.name());
+        payParam.setOrderType(CashierEnum.TRADE.name());
+        payParam.setClientType(ClientTypeEnum.PC.name());
 
         String tradeNo = map.get("open_order_id");
         Double totalAmount = new BigDecimal(map.get("total_fee")).doubleValue();
