@@ -1,6 +1,7 @@
 package cn.lili.modules.payment.kit.plugin.hupijiao;
 
 import cn.hutool.core.net.URLDecoder;
+import cn.hutool.core.net.URLEncoder;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.lili.common.enums.ResultCode;
@@ -8,17 +9,28 @@ import cn.lili.common.enums.ResultUtil;
 import cn.lili.common.exception.ServiceException;
 import cn.lili.common.properties.ApiProperties;
 import cn.lili.common.utils.CurrencyUtil;
+import cn.lili.common.utils.SnowFlake;
 import cn.lili.common.vo.ResultMessage;
 import cn.lili.modules.payment.entity.enums.PaymentMethodEnum;
 import cn.lili.modules.payment.kit.CashierSupport;
 import cn.lili.modules.payment.kit.Payment;
+import cn.lili.modules.payment.kit.core.PaymentHttpResponse;
+import cn.lili.modules.payment.kit.core.enums.RequestMethodEnums;
 import cn.lili.modules.payment.kit.core.kit.HttpKit;
+import cn.lili.modules.payment.kit.core.kit.WxPayKit;
+import cn.lili.modules.payment.kit.core.utils.DateTimeZoneUtil;
 import cn.lili.modules.payment.kit.dto.PayParam;
 import cn.lili.modules.payment.kit.dto.PaymentSuccessParams;
 import cn.lili.modules.payment.kit.params.dto.CashierParam;
+import cn.lili.modules.payment.kit.plugin.wechat.WechatApi;
+import cn.lili.modules.payment.kit.plugin.wechat.enums.WechatApiEnum;
+import cn.lili.modules.payment.kit.plugin.wechat.enums.WechatDomain;
+import cn.lili.modules.payment.kit.plugin.wechat.model.Amount;
+import cn.lili.modules.payment.kit.plugin.wechat.model.UnifiedOrderModel;
 import cn.lili.modules.payment.service.PaymentService;
 import cn.lili.modules.system.entity.dos.Setting;
 import cn.lili.modules.system.entity.dto.payment.HuPiJiaoPaymentSetting;
+import cn.lili.modules.system.entity.dto.payment.WechatPaymentSetting;
 import cn.lili.modules.system.entity.enums.SettingEnum;
 import cn.lili.modules.system.service.SettingService;
 import lombok.extern.slf4j.Slf4j;
@@ -86,6 +98,33 @@ public class HuPiJiaoPlugin implements Payment {
             throw new ServiceException(ResultCode.PAY_ERROR);
         }
 
+    }
+
+
+    @Override
+    public ResultMessage<Object> nativePay(HttpServletRequest request, PayParam payParam) {
+        CashierParam cashierParam = cashierSupport.cashierParam(payParam);
+
+        HuPiJiaoPaymentSetting setting = huPiJiaoPaymentSetting();
+        String appid = setting.getAppid();
+        if (appid == null) {
+            throw new ServiceException(ResultCode.HUPIJIAO_PAYMENT_NOT_SETTING);
+        }
+
+        //支付金额
+        Double fen = cashierParam.getPrice();
+
+        String notifyUrl = notifyUrl(apiProperties.getBuyer(), PaymentMethodEnum.HUPIJIAO);
+
+        String code = null;
+        try {
+            code = HuPiJiaoApi.pay(appid, setting.getAppsecret(), "", new BigDecimal(fen), notifyUrl);
+            return ResultUtil.data(JSONUtil.toJsonStr(code));
+
+        } catch (Exception e) {
+            log.error("虎皮椒二维码支付错误", e);
+            throw new ServiceException(ResultCode.PAY_ERROR);
+        }
     }
 
     @Override
