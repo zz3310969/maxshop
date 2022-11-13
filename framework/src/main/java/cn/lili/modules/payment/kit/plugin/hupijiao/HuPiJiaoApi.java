@@ -27,7 +27,7 @@ public class HuPiJiaoApi {
         sortParams.put("appid", appid);
         sortParams.put("trade_order_id", trade_order_id);
 //			sortParams.put("payment", "wechat");
-        sortParams.put("total_fee", price1);
+        sortParams.put("total_fee", price1.doubleValue());
         sortParams.put("title", product_type + "_账号");
         sortParams.put("time", getSecondTimestamp(new Date()));
         //sortParams.put("callback_url", "https://www.xunhupay.com");
@@ -131,7 +131,7 @@ public class HuPiJiaoApi {
 
 
     public static void main(String[] args) throws Exception {
-        HuPiJiaoApi.pay("20211111202","10f6db80f71243369ab57dc7db3a599e","T202211131591662219144286208","",new BigDecimal(1),"127.0.0.1");
+        HuPiJiaoApi.pay("20211111202","10f6db80f71243369ab57dc7db3a599e","T202211131591662219144286208","",new BigDecimal(0.0001),"127.0.0.1");
 
     }
 
