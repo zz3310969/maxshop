@@ -118,7 +118,7 @@ public class HuPiJiaoPlugin implements Payment {
 
         String code = null;
         try {
-            code = HuPiJiaoApi.pay(appid, setting.getAppsecret(), payParam.getSn(),"", new BigDecimal(fen), notifyUrl);
+            code = HuPiJiaoApi.pay(appid, setting.getAppsecret(), payParam.getSn(),"", new BigDecimal(0.01), notifyUrl);
             return ResultUtil.data(JSONUtil.toJsonStr(code));
         } catch (Exception e) {
             log.error("虎皮椒二维码支付错误", e);
