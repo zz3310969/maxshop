@@ -1,6 +1,8 @@
 package cn.lili.modules.payment.kit.plugin.hupijiao;
 
 import cn.hutool.crypto.SecureUtil;
+import cn.lili.common.utils.HHttpUtils;
+import cn.lili.common.utils.MHttpClientUtils;
 import cn.lili.modules.payment.kit.core.kit.HttpKit;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -16,9 +18,8 @@ public class HuPiJiaoApi {
      * @param product_type
      * @return
      */
-    public static String pay(String appid, String appsecret, String product_type, BigDecimal price1, String notify_url) throws Exception {
+    public static String pay(String appid, String appsecret,String trade_order_id, String product_type, BigDecimal price1, String notify_url) throws Exception {
 
-        String trade_order_id = UUID.randomUUID().toString().replace("-", "");
 
         Map<String, Object> sortParams = new HashMap<>();
         sortParams.put("version", "1.1");
@@ -42,10 +43,9 @@ public class HuPiJiaoApi {
 
         sortParams.put("hash", createSign(sortParams, appsecret));
 
-        System.out.println("开始调三方接口");
+        String response = HHttpUtils.httppostjson("https://api.dpweixin.com/payment/do.html", JSON.toJSONString(sortParams));
 
-
-        String response = HttpKit.getDelegate().post("https://api.xunhupay.com/payment/do.html", JSON.toJSONString(sortParams));
+        // MHttpClientUtils.getInstance().doPostJson("https://api.xunhupay.com/payment/do.html",sortParams);
         System.out.println("调三方接口结束");
 
         JSONObject jsonObject = JSONObject.parseObject(response);
@@ -129,5 +129,10 @@ public class HuPiJiaoApi {
         return sb.toString();
     }
 
+
+    public static void main(String[] args) throws Exception {
+        HuPiJiaoApi.pay("20211111202","10f6db80f71243369ab57dc7db3a599e","T202211131591662219144286208","",new BigDecimal(1),"127.0.0.1");
+
+    }
 
 }
