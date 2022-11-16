@@ -165,10 +165,10 @@ swagger:
   title: lili API接口文档
   description: lili Api Documentation
   version: 1.0.0
-  termsOfServiceUrl: https://maxmall.cn
+  termsOfServiceUrl: https://lunique.xyz
   contact:
     name: lili
-    url: https://maxmall.cn
+    url: https://lunique.xyz
     email: admin@pickmall.com
 
 # Mybatis-plus
@@ -215,16 +215,16 @@ lili:
     sk: zhNKVrJK6UPOhqIjn8AQvG37b9sz6
   #域名
   domain:
-    pc: https://pc-b2b2c.maxmall.cn
-    wap: https://m-b2b2c.maxmall.cn
-    store: https://store-b2b2c.maxmall.cn
-    admin: https://admin-b2b2c.maxmall.cn
+    pc: https://pc-b2b2c.lunique.xyz
+    wap: https://m-b2b2c.lunique.xyz
+    store: https://store-b2b2c.lunique.xyz
+    admin: https://admin-b2b2c.lunique.xyz
   #api地址
   api:
-    buyer: https://buyer-api.maxmall.cn
-    common: https://common-api.maxmall.cn
-    manager: https://admin-api.maxmall.cn
-    store: https://store-api.maxmall.cn
+    buyer: https://buyer-api.lunique.xyz
+    common: https://common-api.lunique.xyz
+    manager: https://admin-api.lunique.xyz
+    store: https://store-api.lunique.xyz
 
   # jwt 细节设定
   jwt-setting:

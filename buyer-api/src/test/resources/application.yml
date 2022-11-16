@@ -154,10 +154,10 @@ swagger:
   title: lili API接口文档
   description: lili Api Documentation
   version: 1.0.0
-  termsOfServiceUrl: https://maxmall.cn
+  termsOfServiceUrl: https://lunique.xyz
   contact:
     name: lili
-    url: https://maxmall.cn
+    url: https://lunique.xyz
     email: admin@pickmall.com
 
 # Mybatis-plus
