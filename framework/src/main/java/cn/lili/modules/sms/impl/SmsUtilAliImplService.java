@@ -42,7 +42,7 @@ import java.util.Map;
  * @version v4.0
  * @since 2020/11/30 15:44
  */
-@Component
+//@Component
 @Slf4j
 public class SmsUtilAliImplService implements SmsUtil, AliSmsUtil {
 

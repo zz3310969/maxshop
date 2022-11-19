@@ -445,6 +445,10 @@ public enum ResultCode {
     ALI_SMS_SETTING_ERROR(70007, "您还未配置阿里云短信"),
     SMS_SIGN_EXIST_ERROR(70008, "短信签名已存在"),
 
+    HUYI_SMS_SETTING_ERROR(70009, "您还未配置互亿无线短信"),
+
+    HUYI_SMS_NO_SUPPORT_ERROR(70010, "互亿无线短信不支持"),
+
     /**
      * 站内信
      */

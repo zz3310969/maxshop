@@ -62,7 +62,7 @@ spring:
         driverClassName: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://192.168.0.108:30306/lilishop?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
         username: root
-        password: lilishop
+        password: MVwiLFwibmlja
         maxActive: 50
         initialSize: 20
         maxWait: 60000
@@ -222,7 +222,7 @@ lili:
     WALLET_PASSWORD: SMS_205755301
   system:
     isDemoSite: false
-    isTestModel: true
+    isTestModel: false
   #     脱敏级别：
   #     0：不做脱敏处理
   #     1：管理端用户手机号等信息脱敏

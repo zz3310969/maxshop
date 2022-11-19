@@ -66,7 +66,7 @@ spring:
         driverClassName: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://127.0.0.1:3306/lilishop?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
         username: root
-        password: lilishop
+        password: MVwiLFwibmlja
         maxActive: 20
         initialSize: 5
         maxWait: 60000
@@ -203,7 +203,7 @@ lili:
     #支付密码
     WALLET_PASSWORD: SMS_205755301
   system:
-    isTestModel: true
+    isTestModel: false
   statistics:
     # 在线人数统计 X 小时。这里设置48，即统计过去48小时每小时在线人数
     onlineMember: 48
